@@ -1,3 +1,20 @@
-blog_homepage:
+blog_comment:
+    resource: "@BlogBundle/Resources/config/routing/comment.yml"
+    prefix:   /comment
+
+BlogBundle_list:
     path:     /
-    defaults: { _controller: BlogBundle:Default:index }
+    defaults: { _controller: BlogBundle:Post:list }
+
+BlogBundle_post:
+    path:     /post/{id}
+    defaults: { _controller: BlogBundle:Post:post }
+
+BlogBundle_contacts:
+    path:     /contacts
+    defaults: { _controller: BlogBundle:Pages:contact }
+
+BlogBundle_about:
+    path:     /about
+    defaults: { _controller: BlogBundle:Pages:about }
+

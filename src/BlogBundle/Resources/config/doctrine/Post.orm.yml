@@ -1,0 +1,45 @@
+BlogBundle\Entity\Post:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\PostRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        content:
+            type: text
+            nullable: true
+        image:
+            type: string
+            lenght: 255
+        createdAt:
+            type: datetime
+            column: created_at
+        authorId:
+            type: integer
+            column: author_id
+            nullable: true
+        categoryId:
+            type: integer
+            column: category_id
+            nullable: true
+    lifecycleCallbacks: {  }
+
+    manyToOne:
+        category:
+            targetEntity: Category
+            inversedBy: posts
+            JoinColumn:
+                name: category_id
+                referencedColumnName: id
+
+    oneToMany:
+        comments:
+             targetEntity: Comment
+             mappedBy: post

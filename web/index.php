@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 
 // Autoload
-$loader = require __DIR__.'/../app/autoload.php';
+$loader = require __DIR__ . '/../app/autoload.php';
 Debug::enable();
 
 // Framework init

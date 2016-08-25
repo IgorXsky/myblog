@@ -1,0 +1,46 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block title %}posts{% endblock %}
+
+{% block body %}
+    {% for post in posts %}
+        <article>
+            <h2><a href="{{ path('BlogBundle_post', {'id': post.id}) }}">{{ post.title() }}</a></h2>
+
+            <div class="row">
+                <a href="#">{{ post.category.name }}</a>
+                <a href="#">TAG_1</a>, <a href="#">TAG_2</a>, <a href="#">TAG_3</a>
+            </div>
+            <div class="row">
+                <a href="singlepost.html#comments">0 COMMENTS_SECTION</a>
+                {{ post.getCreatedAt()|date('F j, Y g:i A') }}
+            </div>
+
+            <hr>
+
+            <img src="{{ asset(['bundles/blog/images/', post.image]|join) }}" class="large">
+
+            <br />
+
+            <p class="lead">{{ post.getContent() }}</p>
+
+            <p class="text-right">
+                <a href="#">
+                    Читать дальше...
+                </a>
+            </p>
+
+            <hr>
+        </article>
+    {% else %}
+        <li>Сoобщений не найдено</li>
+    {% endfor %}
+
+
+
+    <ul class="pager">
+        <li class="previous"><a href="#">&larr; Туда</a></li>
+        <li class="next"><a href="#">Сюда &rarr;</a></li>
+    </ul>
+
+{% endblock %}

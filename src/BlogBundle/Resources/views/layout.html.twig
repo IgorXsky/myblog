@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block navigation %}
+<div class="top">
+    <nav>
+        <ul class="navigation">
+            <li><a href="{{ path('BlogBundle_list') }}">Home</a></li>
+            <li><a href="{{ path('BlogBundle_about') }}">About</a></li>
+            <li><a href="{{ path('BlogBundle_contacts') }}">Contact</a></li>
+        </ul>
+    </nav>
+</div>
+    <hgroup>
+        <h2>{% block blog_title %}<a href="{{ path('BlogBundle_list') }}">Myblog</a>{% endblock %}</h2>
+        <h3>{% block blog_tagline %}<a href="https://symfony.com/">my blog on Symfony</a>{% endblock %}</h3>
+    </hgroup>
+{% endblock %}
+
+{% block sidebar %}
+    {{ include('BlogBundle::Blocks/subscribe.html.twig') }}
+    {{ include('BlogBundle::Blocks/latest_posts.html.twig') }}
+    {{ include('BlogBundle::Blocks/categories.html.twig') }}
+    {{ include('BlogBundle::Blocks/tags.html.twig') }}
+    {{ include('BlogBundle::Blocks/recent_comments.html.twig') }}
+{% endblock %}
