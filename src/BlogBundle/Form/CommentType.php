@@ -16,6 +16,7 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setAction('/save_comment')
             ->add('userName')
             ->add('message')
             ->add('postId', HiddenType::class)

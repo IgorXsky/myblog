@@ -4,16 +4,10 @@ namespace BlogBundle\Controller;
 
 
 use BlogBundle\Entity\Comment;
+use BlogBundle\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
-use BlogBundle\Form\CommentType;
 use BlogBundle\Form\PostType;
 
 
@@ -44,16 +38,48 @@ class PostController extends Controller
         ));
     }
 
+    public function createAction(Request $request){
+
+        $session = new Session();
+        $user = $session->get("user");
+
+        if($user){
+            $post = new Post();
+            $form = $this->createForm(PostType::class, $post);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted()){
+                $post->setCreatedAt(new \DateTime());
+                $this->getDoctrine()->getManager()->persist($post);
+                $this->getDoctrine()->getManager()->flush();
+            }
+            return $this->render('BlogBundle:Post:create.html.twig', array(
+                'form' => $form->createView()
+            ));
+        }else{
+            return $this->render('BlogBundle:User:login.html.twig', array());
+        }
+
+    }
+
     public function saveCommentAction(Request $request){
         $comment = new Comment();
         $form = $this->createForm('BlogBundle\Form\CommentType', $comment);
         $form->handleRequest($request);
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('BlogBundle:Post');
+        $post = $repository->find($_POST['comment']['postId']);
+
+        $comment->setPost($post);
 
         $manager = $this->getDoctrine()->getEntityManager();
         $manager->persist($comment);
         $manager->flush();
 
-        return new Response();
+        return $this->redirectToRoute(
+            'BlogBundle_post', ['id' => $_POST['comment']['postId']]);
     }
 
 }

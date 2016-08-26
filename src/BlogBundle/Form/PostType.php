@@ -1,9 +1,12 @@
 <?php
+
 namespace BlogBundle\Form;
+
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 class PostType extends AbstractType
 {
     /**
@@ -15,10 +18,15 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('save', SubmitType::class, array('label' => 'Create Blog'))
+            ->add('image')
+            //->add('createdAt', 'datetime')
+            //->add('authorId')
+            ->add('categoryId')
+            //->add('category')
+            ->add('save', SubmitType::class, array('label' => 'Create blog'))
         ;
     }
-
+    
     /**
      * @param OptionsResolver $resolver
      */

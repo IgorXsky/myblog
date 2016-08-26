@@ -1,0 +1,21 @@
+BlogBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        userName:
+            type: string
+            length: '20'
+            unique: true
+            column: user_name
+        userPassword:
+            type: string
+            length: '32'
+            column: user_password
+    lifecycleCallbacks: {  }
